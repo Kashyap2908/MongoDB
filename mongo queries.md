@@ -11,6 +11,8 @@ Build Info: {
         "target_arch": "x86_64"
     }
 }
+
+
 PS D:\Kp> mongosh       
 Current Mongosh Log ID: 6a3a293ed7c66f2f6a33f744
 Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.10.3
@@ -28,23 +30,34 @@ test> use mydb1
 switched to db mydb1
 mydb1> db
 mydb1
+
+
 mydb1> show collections
 
-mydb1> db.createConnection("Student")
-TypeError: db.createConnection is not a function
+
 mydb1> db.createCollection("Student")
 { ok: 1 }
+
+
 mydb1> db.faculty.drop()
 false
+
+
 mydb1> db.createCollection("faculty")
 { ok: 1 }
+
+
 mydb1> db.faculty.drop()
 true
+
+
 mydb1> db.student.insertOne({name:'A',rollno:1})
 {
   acknowledged: true,
   insertedId: ObjectId("6a3a2a55d7c66f2f6a33f745")
 }
+
+
 mydb1> db.student.insertMany([{name:'B',rollno:2},{name:'C',rollno:3}])
 {
   acknowledged: true,
@@ -53,6 +66,8 @@ mydb1> db.student.insertMany([{name:'B',rollno:2},{name:'C',rollno:3}])
     '1': ObjectId("6a3a2aa8d7c66f2f6a33f747")
   }
 }
+
+
 mydb1> db.student.find
 [Function: find] AsyncFunction {
   returnsPromise: true,
@@ -67,12 +82,16 @@ mydb1> db.student.find
   shellCommandCompleter: undefined,
   help: [Function (anonymous)] Help
 }
+
+
 mydb1> db.student.find()
 [
   { _id: ObjectId("6a3a2a55d7c66f2f6a33f745"), name: 'A', rollno: 1 },
   { _id: ObjectId("6a3a2aa8d7c66f2f6a33f746"), name: 'B', rollno: 2 },
   { _id: ObjectId("6a3a2aa8d7c66f2f6a33f747"), name: 'C', rollno: 3 }
 ]
+
+
 mydb1> db.student.insertMany([{name:'B',city:'Ahmedabad'}]
 ... db.student.insertMany([{name:'B',city:'Ahmedabad'}])
 Uncaught:
@@ -83,11 +102,14 @@ SyntaxError: Unexpected token, expected "," (2:0)
     | ^
   3 |
 
+
+
 mydb1> db.student.insertOne({name:'D',city:'Ahmedabad'})
 {
   acknowledged: true,
   insertedId: ObjectId("6a3a2b4cd7c66f2f6a33f748")
 }
+
 mydb1> db.student.find()
 [
   { _id: ObjectId("6a3a2a55d7c66f2f6a33f745"), name: 'A', rollno: 1 },
@@ -99,12 +121,20 @@ mydb1> db.student.find()
     city: 'Ahmedabad'
   }
 ]
+
+
 mydb1> db.student.renameCollection('students')
 { ok: 1 }
+
+
 mydb1> show collections
 Student 
 students
+
+
 mydb1> db.student.find()
+
+
 
 mydb1> db.students.find()
 [
@@ -117,16 +147,28 @@ mydb1> db.students.find()
     city: 'Ahmedabad'
   }
 ]
+
+
 mydb1> db.Student.find()
+
+
 
 mydb1> db.Student.drop()
 true
+
+
 mydb1> show collections
 students
+
+
 mydb1> db.find({name:'A'})
 TypeError: db.find is not a function
+
+
 mydb1> db.students.find({name:'A'})
 [ { _id: ObjectId("6a3a2a55d7c66f2f6a33f745"), name: 'A', rollno: 1 } ]
+
+
 mydb1> db.students.find({},{name:1})
 [
   { _id: ObjectId("6a3a2a55d7c66f2f6a33f745"), name: 'A' },
@@ -134,6 +176,8 @@ mydb1> db.students.find({},{name:1})
   { _id: ObjectId("6a3a2aa8d7c66f2f6a33f747"), name: 'C' },
   { _id: ObjectId("6a3a2b4cd7c66f2f6a33f748"), name: 'D' }
 ]
+
+
 mydb1> db.students.find({},{name:0})
 [
   { _id: ObjectId("6a3a2a55d7c66f2f6a33f745"), rollno: 1 },
@@ -141,12 +185,20 @@ mydb1> db.students.find({},{name:0})
   { _id: ObjectId("6a3a2aa8d7c66f2f6a33f747"), rollno: 3 },
   { _id: ObjectId("6a3a2b4cd7c66f2f6a33f748"), city: 'Ahmedabad' }
 ]
+
+
 mydb1> db.students.find({},{_id:0,name:'A'})
 [ { name: 'A' }, { name: 'A' }, { name: 'A' }, { name: 'A' } ]
+
+
 mydb1> db.students.find({},{city:0,name:1})
 MongoServerError: Cannot do inclusion on field name in exclusion projection
+
+
 mydb1> db.students.find({},{_id:0,name:1})
 [ { name: 'A' }, { name: 'B' }, { name: 'C' }, { name: 'D' } ]
+
+
 mydb1> db.students.find({},{city:0})
 [
   { _id: ObjectId("6a3a2a55d7c66f2f6a33f745"), name: 'A', rollno: 1 },
@@ -154,14 +206,26 @@ mydb1> db.students.find({},{city:0})
   { _id: ObjectId("6a3a2aa8d7c66f2f6a33f747"), name: 'C', rollno: 3 },
   { _id: ObjectId("6a3a2b4cd7c66f2f6a33f748"), name: 'D' }
 ]
+
+
+
+
 mydb1> db.students.find({name:'A'},{_id:0,rollno:false})
 [ { name: 'A' } ]
+
+
 mydb1> db.students.find({name:'A'},{_id:1,rollno:false})
 [ { _id: ObjectId("6a3a2a55d7c66f2f6a33f745"), name: 'A' } ]
+
+
 mydb1> db.students.findOne({},{name:1})
 { _id: ObjectId("6a3a2a55d7c66f2f6a33f745"), name: 'A' }
+
+
 mydb1> db.students.findOne({rollno:3},{name:1})
 { _id: ObjectId("6a3a2aa8d7c66f2f6a33f747"), name: 'C' }
+
+
 mydb1> db.students.find().limit
 [Function: limit] {    
   returnType: 'Cursor',
@@ -176,18 +240,26 @@ mydb1> db.students.find().limit
   shellCommandCompleter: undefined,
   help: [Function (anonymous)] Help
 }
+
+
 mydb1> db.students.find().limit(2)
 [
   { _id: ObjectId("6a3a2a55d7c66f2f6a33f745"), name: 'A', rollno: 1 },
   { _id: ObjectId("6a3a2aa8d7c66f2f6a33f746"), name: 'B', rollno: 2 }
 ]
+
+
 mydb1> db.students.find().limit(2).skip(1)
 [
   { _id: ObjectId("6a3a2aa8d7c66f2f6a33f746"), name: 'B', rollno: 2 },
   { _id: ObjectId("6a3a2aa8d7c66f2f6a33f747"), name: 'C', rollno: 3 }
 ]
+
+
 mydb1> db.updateOne({name:'A'},{$set:{name:'AA'}})
 TypeError: db.updateOne is not a function
+
+
 mydb1> db.students.updateOne({name:'A'},{$set:{name:'AA'}})
 {
   acknowledged: true,
@@ -196,6 +268,8 @@ mydb1> db.students.updateOne({name:'A'},{$set:{name:'AA'}})
   modifiedCount: 1,
   upsertedCount: 0
 }
+
+
 mydb1> db.students.updateOne({name:'A'},{$set:{name:'AA',city:'Hmt'}})
 {
   acknowledged: true,
@@ -204,6 +278,8 @@ mydb1> db.students.updateOne({name:'A'},{$set:{name:'AA',city:'Hmt'}})
   modifiedCount: 0,
   upsertedCount: 0
 }
+
+
 mydb1> db.students.find()
 [
   { _id: ObjectId("6a3a2a55d7c66f2f6a33f745"), name: 'AA', rollno: 1 },
@@ -215,6 +291,8 @@ mydb1> db.students.find()
     city: 'Ahmedabad'
   }
 ]
+
+
 mydb1> db.students.updateOne({name:'A'},{$set:{name:'AA',rollno:11}})
 {
   acknowledged: true,
@@ -223,6 +301,8 @@ mydb1> db.students.updateOne({name:'A'},{$set:{name:'AA',rollno:11}})
   modifiedCount: 0,
   upsertedCount: 0
 }
+
+
 mydb1> db.students.find()
 [
   { _id: ObjectId("6a3a2a55d7c66f2f6a33f745"), name: 'AA', rollno: 1 },
@@ -234,6 +314,8 @@ mydb1> db.students.find()
     city: 'Ahmedabad'
   }
 ]
+
+
 mydb1> db.students.updateOne({name:'AA'},{$set:{name:'A'}})
 {
   acknowledged: true,
@@ -242,6 +324,8 @@ mydb1> db.students.updateOne({name:'AA'},{$set:{name:'A'}})
   modifiedCount: 1,
   upsertedCount: 0
 }
+
+
 mydb1> db.students.updateOne({name:'A'},{$set:{name:'AA',rollno:11}})
 {
   acknowledged: true,
@@ -250,6 +334,8 @@ mydb1> db.students.updateOne({name:'A'},{$set:{name:'AA',rollno:11}})
   modifiedCount: 1,
   upsertedCount: 0
 }
+
+
 mydb1> db.students.find()
 [
   { _id: ObjectId("6a3a2a55d7c66f2f6a33f745"), name: 'AA', rollno: 11 },
@@ -261,6 +347,9 @@ mydb1> db.students.find()
     city: 'Ahmedabad'
   }
 ]
+
+
+
 mydb1> db.students.updateMany({name:'A'},{$set:{name:'AA',rollno:11}})
 {
   acknowledged: true,
@@ -269,6 +358,8 @@ mydb1> db.students.updateMany({name:'A'},{$set:{name:'AA',rollno:11}})
   modifiedCount: 0,
   upsertedCount: 0
 }
+
+
 mydb1> db.students.updateOne({name:'AA'},{$set:{name:'A'}})
 {
   acknowledged: true,
@@ -277,6 +368,9 @@ mydb1> db.students.updateOne({name:'AA'},{$set:{name:'A'}})
   modifiedCount: 1,
   upsertedCount: 0
 }
+
+
+
 mydb1> db.students.updateMany({name:'A'},{$set:{name:'AA',rollno:11}})
 {
   acknowledged: true,
@@ -285,6 +379,9 @@ mydb1> db.students.updateMany({name:'A'},{$set:{name:'AA',rollno:11}})
   modifiedCount: 1,
   upsertedCount: 0
 }
+
+
+
 mydb1> db.students.find()
 [
   { _id: ObjectId("6a3a2a55d7c66f2f6a33f745"), name: 'AA', rollno: 11 },
@@ -296,6 +393,8 @@ mydb1> db.students.find()
     city: 'Ahmedabad'
   }
 ]
+
+
 mydb1> db.students.updateOne({name:'E'},{$set:{name:'EE',rollno:5}},{upsert:true})
 {
   acknowledged: true,
@@ -304,6 +403,8 @@ mydb1> db.students.updateOne({name:'E'},{$set:{name:'EE',rollno:5}},{upsert:true
   modifiedCount: 0,
   upsertedCount: 1
 }
+
+
 mydb1> db.students.find()
 [
   { _id: ObjectId("6a3a2a55d7c66f2f6a33f745"), name: 'AA', rollno: 11 },
@@ -316,18 +417,33 @@ mydb1> db.students.find()
   },
   { _id: ObjectId("6a3a32f36c07e5e7dc640eaf"), name: 'EE', rollno: 5 }
 ]
+
+
+
 mydb1> db.students.count()
 DeprecationWarning: Collection.count() is deprecated. Use countDocuments or estimatedDocumentCount.
 5
+
+
 mydb1> db.students.find().count()
 5
+
+
 mydb1> db.students.find().countDocument()
 TypeError: db.students.find().countDocument is not a function
+
+
 mydb1> db.students.find().countDocuments()
 TypeError: db.students.find().countDocuments is not a function
+
+
 mydb1> db.students.countDocuments()
 5
+
+
 mydb1> db.student.find().sort({rollno:1})
+
+
 
 mydb1> db.students.find().sort({rollno:1})
 [  
@@ -341,6 +457,8 @@ mydb1> db.students.find().sort({rollno:1})
   { _id: ObjectId("6a3a32f36c07e5e7dc640eaf"), name: 'EE', rollno: 5 },
   { _id: ObjectId("6a3a2a55d7c66f2f6a33f745"), name: 'AA', rollno: 11 }
 ]
+
+
 mydb1> db.students.find().sort({rollno:-1})
 [
   { _id: ObjectId("6a3a2a55d7c66f2f6a33f745"), name: 'AA', rollno: 11 },
@@ -353,4 +471,3 @@ mydb1> db.students.find().sort({rollno:-1})
     city: 'Ahmedabad'
   }
 ]
-mydb1>
