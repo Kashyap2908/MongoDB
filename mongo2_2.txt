@@ -1,0 +1,57 @@
+write a query that returns all the documents where the age field is 22 or more
+
+
+db.participant.find({age:{$not:{$lt:22}}})
+{
+  _id: ObjectId('6a3b7571116730f22c632c57'),
+  name: 'N1',
+  age: 28,
+  grade: 'A'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c58'),
+  name: 'N2',
+  age: 22,
+  grade: 'B'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c59'),
+  name: 'N3',
+  age: 28,
+  grade: 'C'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c5a'),
+  name: 'N4',
+  age: 25,
+  grade: 'D'
+}
+
+
+OR
+
+db.participant.find({age:{$gte:22}})
+{
+  _id: ObjectId('6a3b7571116730f22c632c57'),
+  name: 'N1',
+  age: 28,
+  grade: 'A'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c58'),
+  name: 'N2',
+  age: 22,
+  grade: 'B'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c59'),
+  name: 'N3',
+  age: 28,
+  grade: 'C'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c5a'),
+  name: 'N4',
+  age: 25,
+  grade: 'D'
+}

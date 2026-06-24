@@ -1,0 +1,134 @@
+use Kp
+
+
+db.createCollection('participant')
+{ ok: 1 }
+
+
+db.participant.insertMany([{name:'N1',age:28,grade:'A'},{name:'N2',age:22,grade:'B'},{name:'N3',age:28,grade:'C'},{name:'N4',age:25,grade:'D'},{name:'N5',age:18,grade:'A'},])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6a3b74f4116730f22c632c52'),
+    '1': ObjectId('6a3b74f4116730f22c632c53'),
+    '2': ObjectId('6a3b74f4116730f22c632c54'),
+    '3': ObjectId('6a3b74f4116730f22c632c55'),
+    '4': ObjectId('6a3b74f4116730f22c632c56')
+  }
+}
+
+
+show collections
+employee
+participant
+
+
+db.participant.find()
+{
+  _id: ObjectId('6a3b7571116730f22c632c57'),
+  name: 'N1',
+  age: 28,
+  grade: 'A'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c58'),
+  name: 'N2',
+  age: 22,
+  grade: 'B'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c59'),
+  name: 'N3',
+  age: 28,
+  grade: 'C'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c5a'),
+  name: 'N4',
+  age: 25,
+  grade: 'D'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c5b'),
+  name: 'N5',
+  age: 18,
+  grade: 'A'
+}
+
+
+db.participant.find({$and:[{name:'N1'},{age:28}]})
+{
+  _id: ObjectId('6a3b7571116730f22c632c57'),
+  name: 'N1',
+  age: 28,
+  grade: 'A'
+}
+
+
+db.participant.find({$or:[{name:'N1'},{age:28}]})
+{
+  _id: ObjectId('6a3b7571116730f22c632c57'),
+  name: 'N1',
+  age: 28,
+  grade: 'A'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c59'),
+  name: 'N3',
+  age: 28,
+  grade: 'C'
+}
+
+
+db.participant.find({$nor:[{age:18}]})
+{
+  _id: ObjectId('6a3b7571116730f22c632c57'),
+  name: 'N1',
+  age: 28,
+  grade: 'A'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c58'),
+  name: 'N2',
+  age: 22,
+  grade: 'B'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c59'),
+  name: 'N3',
+  age: 28,
+  grade: 'C'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c5a'),
+  name: 'N4',
+  age: 25,
+  grade: 'D'
+}
+
+
+db.participant.find({age:{$not:{$eq:18}}})
+{
+  _id: ObjectId('6a3b7571116730f22c632c57'),
+  name: 'N1',
+  age: 28,
+  grade: 'A'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c58'),
+  name: 'N2',
+  age: 22,
+  grade: 'B'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c59'),
+  name: 'N3',
+  age: 28,
+  grade: 'C'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c5a'),
+  name: 'N4',
+  age: 25,
+  grade: 'D'
+}

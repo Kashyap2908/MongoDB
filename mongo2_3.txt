@@ -1,0 +1,17 @@
+write a query that matches all the documents where the grade not in A and D
+
+
+db.participant.find({grade:{$not:{$in:['A','D']}}})
+{
+  _id: ObjectId('6a3b7571116730f22c632c58'),
+  name: 'N2',
+  age: 22,
+  grade: 'B'
+}
+{
+  _id: ObjectId('6a3b7571116730f22c632c59'),
+  name: 'N3',
+  age: 28,
+  grade: 'C'
+}
+Kp

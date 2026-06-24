@@ -1,0 +1,257 @@
+field update operators:
+    $inc
+    $mul
+    $rename
+    $set
+    $unset
+
+
+db.createCollection('Table1')
+{ ok: 1 }
+
+
+db.Table1.insertMany([{name:'X',std:1},{name:'Y',std:12},{name:'Z',std:3},{name:'W',std:4}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6a3b7b1ea4e40c3281d1f040'),
+    '1': ObjectId('6a3b7b1ea4e40c3281d1f041'),
+    '2': ObjectId('6a3b7b1ea4e40c3281d1f042'),
+    '3': ObjectId('6a3b7b1ea4e40c3281d1f043')
+  }
+}
+
+increament std by 1
+
+db.Table1.updateMany({},{$inc:{std:1}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 4,
+  modifiedCount: 4,
+  upsertedCount: 0
+}
+
+db.Table1.find()
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f040'),
+  name: 'X',
+  std: 2
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f041'),
+  name: 'Y',
+  std: 13
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f042'),
+  name: 'Z',
+  std: 4
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f043'),
+  name: 'W',
+  std: 5
+}
+
+
+
+
+decreament std by 2
+
+db.Table1.updateMany({},{$inc:{std:-2}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 4,
+  modifiedCount: 4,
+  upsertedCount: 0
+}
+db.Table1.find()
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f040'),
+  name: 'X',
+  std: 0
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f041'),
+  name: 'Y',
+  std: 11
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f042'),
+  name: 'Z',
+  std: 2
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f043'),
+  name: 'W',
+  std: 3
+}
+Kp
+
+
+multiply std field by 2
+
+db.Table1.updateMany({},{$mul:{std:2}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 4,
+  modifiedCount: 3,
+  upsertedCount: 0
+}
+db.Table1.find()
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f040'),
+  name: 'X',
+  std: 0
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f041'),
+  name: 'Y',
+  std: 22
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f042'),
+  name: 'Z',
+  std: 4
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f043'),
+  name: 'W',
+  std: 6
+}
+Kp
+
+rename std with salary
+
+db.Table1.updateMany({},{$rename:{std:'salary'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 4,
+  modifiedCount: 4,
+  upsertedCount: 0
+}
+db.Table1.find()
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f040'),
+  name: 'X',
+  salary: 0
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f041'),
+  name: 'Y',
+  salary: 22
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f042'),
+  name: 'Z',
+  salary: 4
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f043'),
+  name: 'W',
+  salary: 6
+}
+Kp
+
+
+increase salary by 10% for all documents
+
+db.Table1.updateMany({},{$rename:{std:'salary'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 4,
+  modifiedCount: 4,
+  upsertedCount: 0
+}
+db.Table1.find()
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f040'),
+  name: 'X',
+  salary: 0
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f041'),
+  name: 'Y',
+  salary: 22
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f042'),
+  name: 'Z',
+  salary: 4
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f043'),
+  name: 'W',
+  salary: 6
+}
+Kp
+
+set
+
+db.Table1.updateMany({name:'X'},{$set:{name:'R'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.Table1.find()
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f040'),
+  name: 'R',
+  salary: 0
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f041'),
+  name: 'Y',
+  salary: 24.200000000000003
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f042'),
+  name: 'Z',
+  salary: 4.4
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f043'),
+  name: 'W',
+  salary: 6.6000000000000005
+}
+Kp
+
+unset
+
+db.Table1.updateMany({name:'R'},{$unset:{name:""}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.Table1.find()
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f040'),
+  salary: 0
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f041'),
+  name: 'Y',
+  salary: 24.200000000000003
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f042'),
+  name: 'Z',
+  salary: 4.4
+}
+{
+  _id: ObjectId('6a3b7b1ea4e40c3281d1f043'),
+  name: 'W',
+  salary: 6.6000000000000005
+}
+Kp

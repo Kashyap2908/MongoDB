@@ -1,0 +1,7 @@
+Aggregation
+
+filter data:
+    $match--> {$match:{condition}}
+
+
+db.people.aggregate([{$match:{city:'Ahm'}}])

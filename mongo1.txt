@@ -1,0 +1,257 @@
+use employee
+switched to db employee
+db.employee.insertMany([{name:'A',age:20,yearsOfExperience:3,ratings:8},{name:'B',age:22,yearsOfExperience:2,ratings:9},{name:'C',age:23,yearsOfExperience:1,ratings:10},{name:'D',age:25,yearsOfExperience:4,ratings:9}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6a3a382475396038e7065857'),
+    '1': ObjectId('6a3a382475396038e7065858'),
+    '2': ObjectId('6a3a382475396038e7065859'),
+    '3': ObjectId('6a3a382475396038e706585a')
+  }
+}
+db.employee.find().sort({age:-1})
+{
+  _id: ObjectId('6a3a382475396038e706585a'),
+  name: 'D',
+  age: 25,
+  yearsOfExperience: 4,
+  ratings: 9
+}
+{
+  _id: ObjectId('6a3a382475396038e7065859'),
+  name: 'C',
+  age: 23,
+  yearsOfExperience: 1,
+  ratings: 10
+}
+{
+  _id: ObjectId('6a3a382475396038e7065858'),
+  name: 'B',
+  age: 22,
+  yearsOfExperience: 2,
+  ratings: 9
+}
+{
+  _id: ObjectId('6a3a382475396038e7065857'),
+  name: 'A',
+  age: 20,
+  yearsOfExperience: 3,
+  ratings: 8
+}
+db.employee.findOne().sort({age:-1})
+TypeError: db.employee.findOne().sort is not a function
+db.employee.find().sort({age:-1}).limit(1)
+{
+  _id: ObjectId('6a3a382475396038e706585a'),
+  name: 'D',
+  age: 25,
+  yearsOfExperience: 4,
+  ratings: 9
+}
+db.employee.findOne().sort({age:1})
+TypeError: db.employee.findOne().sort is not a function
+db.employee.find().sort({age:1})
+{
+  _id: ObjectId('6a3a382475396038e7065857'),
+  name: 'A',
+  age: 20,
+  yearsOfExperience: 3,
+  ratings: 8
+}
+{
+  _id: ObjectId('6a3a382475396038e7065858'),
+  name: 'B',
+  age: 22,
+  yearsOfExperience: 2,
+  ratings: 9
+}
+{
+  _id: ObjectId('6a3a382475396038e7065859'),
+  name: 'C',
+  age: 23,
+  yearsOfExperience: 1,
+  ratings: 10
+}
+{
+  _id: ObjectId('6a3a382475396038e706585a'),
+  name: 'D',
+  age: 25,
+  yearsOfExperience: 4,
+  ratings: 9
+}
+db.employee.find().sort({age:-1}).limit(1)
+{
+  _id: ObjectId('6a3a382475396038e706585a'),
+  name: 'D',
+  age: 25,
+  yearsOfExperience: 4,
+  ratings: 9
+}
+db.employee.find({},{ratings:10})
+{
+  _id: ObjectId('6a3a382475396038e7065857'),
+  ratings: 8
+}
+{
+  _id: ObjectId('6a3a382475396038e7065858'),
+  ratings: 9
+}
+{
+  _id: ObjectId('6a3a382475396038e7065859'),
+  ratings: 10
+}
+{
+  _id: ObjectId('6a3a382475396038e706585a'),
+  ratings: 9
+}
+db.employee.find({ratings:10})
+{
+  _id: ObjectId('6a3a382475396038e7065859'),
+  name: 'C',
+  age: 23,
+  yearsOfExperience: 1,
+  ratings: 10
+}
+db.employee.deleteMany({yearsOfExperience:2})
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+db.employee.find()
+{
+  _id: ObjectId('6a3a382475396038e7065857'),
+  name: 'A',
+  age: 20,
+  yearsOfExperience: 3,
+  ratings: 8
+}
+{
+  _id: ObjectId('6a3a382475396038e7065859'),
+  name: 'C',
+  age: 23,
+  yearsOfExperience: 1,
+  ratings: 10
+}
+{
+  _id: ObjectId('6a3a382475396038e706585a'),
+  name: 'D',
+  age: 25,
+  yearsOfExperience: 4,
+  ratings: 9
+}
+db.employee.find({age:{$lt:23}})
+{
+  _id: ObjectId('6a3a382475396038e7065857'),
+  name: 'A',
+  age: 20,
+  yearsOfExperience: 3,
+  ratings: 8
+}
+db.employee.find({age:{$gt:23}})
+{
+  _id: ObjectId('6a3a382475396038e706585a'),
+  name: 'D',
+  age: 25,
+  yearsOfExperience: 4,
+  ratings: 9
+}
+db.employee.find({age:{$eq:23}})
+{
+  _id: ObjectId('6a3a382475396038e7065859'),
+  name: 'C',
+  age: 23,
+  yearsOfExperience: 1,
+  ratings: 10
+}
+db.employee.find({age:{$lte:23}})
+{
+  _id: ObjectId('6a3a382475396038e7065857'),
+  name: 'A',
+  age: 20,
+  yearsOfExperience: 3,
+  ratings: 8
+}
+{
+  _id: ObjectId('6a3a382475396038e7065859'),
+  name: 'C',
+  age: 23,
+  yearsOfExperience: 1,
+  ratings: 10
+}
+db.employee.find({age:{$gte:23}})
+{
+  _id: ObjectId('6a3a382475396038e7065859'),
+  name: 'C',
+  age: 23,
+  yearsOfExperience: 1,
+  ratings: 10
+}
+{
+  _id: ObjectId('6a3a382475396038e706585a'),
+  name: 'D',
+  age: 25,
+  yearsOfExperience: 4,
+  ratings: 9
+}
+db.employee.find({age:{$ne:23}})
+{
+  _id: ObjectId('6a3a382475396038e7065857'),
+  name: 'A',
+  age: 20,
+  yearsOfExperience: 3,
+  ratings: 8
+}
+{
+  _id: ObjectId('6a3a382475396038e706585a'),
+  name: 'D',
+  age: 25,
+  yearsOfExperience: 4,
+  ratings: 9
+}
+db.employee.find({age:{$in:[23,25]}})
+{
+  _id: ObjectId('6a3a382475396038e7065859'),
+  name: 'C',
+  age: 23,
+  yearsOfExperience: 1,
+  ratings: 10
+}
+{
+  _id: ObjectId('6a3a382475396038e706585a'),
+  name: 'D',
+  age: 25,
+  yearsOfExperience: 4,
+  ratings: 9
+}
+db.employee.find({age:{$gt:20},age{$lt:25}})
+SyntaxError: Unexpected token, expected "," (1:34)
+
+> 1 | db.employee.find({age:{$gt:20},age{$lt:25}})
+    |                                   ^
+db.employee.find({age:{$gt:20},age:{$lt:25}})
+{
+  _id: ObjectId('6a3a382475396038e7065857'),
+  name: 'A',
+  age: 20,
+  yearsOfExperience: 3,
+  ratings: 8
+}
+{
+  _id: ObjectId('6a3a382475396038e7065859'),
+  name: 'C',
+  age: 23,
+  yearsOfExperience: 1,
+  ratings: 10
+}
+db.employee.find({age:{$gt:20,$lt:25}})
+{
+  _id: ObjectId('6a3a382475396038e7065859'),
+  name: 'C',
+  age: 23,
+  yearsOfExperience: 1,
+  ratings: 10
+}
+employee
+
+
