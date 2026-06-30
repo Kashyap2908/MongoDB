@@ -1,0 +1,40 @@
+db.orders.insertMany([
+    {_id:1,person:'N',product:'laptop',category:'Ele',amout:55000},
+    {_id:2,person:'R',product:'mobile',category:'Ele',amout:25000},
+    {_id:3,person:'P',product:'shoes',category:'fashion',amout:3000},
+    {_id:4,person:'A',product:'tshirt',category:'Ele',amout:1500},
+    {_id:5,person:'N',product:'fridge',category:'Ele',amout:40000},
+    {_id:6,person:"K",product:'watch',category:'Ele',amout:5000},
+    {_id:7,person:'R',product:'microwave',category:'Ele',amout:12000}
+
+])
+
+
+// calculate the avg order amount for each category
+// sort resut in descending order of avg amount
+// display only category and avg amount
+
+db.orders.aggregate([{$group:{_id:"$category",amount:{$avg:"$amout"}}},{$sort:{amount:-1}},{$project:{_id:0,Category:"$_id",amount:'$amount'}}])
+{
+  Category: 'Ele',
+  amount: 23083.333333333332
+}
+{
+  Category: 'fashion',
+  amount: 3000
+}
+ 
+
+// find highest order amount for each category 
+// sort the result in descending order of highest order amount and
+// list only the category and highest order amount
+
+db.orders.aggregate([{$group:{_id:"$category",amount:{$max:"$amout"}}},{$sort:{amount:-1}},{$project:{_id:0,Category:"$_id",amount:'$amount'}}])
+{
+  Category: 'Ele',
+  amount: 55000
+}
+{
+  Category: 'fashion',
+  amount: 3000
+}

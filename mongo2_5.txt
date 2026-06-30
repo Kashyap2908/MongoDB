@@ -1,7 +1,176 @@
 Aggregation
-
+    db.collection.aggregate([pipeline])
 filter data:
-    $match--> {$match:{condition}}
+    Pileline:
+        
+        1. $match--> {$match:{condition}}
+        2. $group-->
+            $sum
+            $min
+            $max
+            $avg
+        3. $sort
+        4. $project
+        ==> result
 
+// db.studentdata.insertMany([{name:'Niya',city:'Ahmedabad',marks:85},{name:'Riya',city:'Surat',marks:70},{name:'Siya',city:'Ahmedabad',marks:90},{name:'Priya',city:'Surat',marks:80}])
 
-db.people.aggregate([{$match:{city:'Ahm'}}])
+// $match
+
+db.studentdata.aggregate([{$match:{city:'Surat'}}])
+{
+  _id: ObjectId('6a435e902155baa4f3418b90'),
+  name: 'Riya',
+  city: 'Surat',
+  marks: 70
+}
+{
+  _id: ObjectId('6a435e902155baa4f3418b92'),
+  name: 'Priya',
+  city: 'Surat',
+  marks: 80
+}
+ 
+
+// $group with $sum
+
+db.studentdata.aggregate([{$group:{_id:"$city",totalstudents:{$sum:1}}}])
+{
+  _id: 'Surat',
+  totalstudents: 2
+}
+{
+  _id: 'Ahmedabad',
+  totalstudents: 2
+}
+ 
+// $group with $avg
+
+db.studentdata.aggregate([{$group:{_id:"$city",avgmarks:{$avg:"$marks"}}}])
+{
+  _id: 'Surat',
+  avgmarks: 75
+}
+{
+  _id: 'Ahmedabad',
+  avgmarks: 87.5
+}
+ 
+// $sort
+// ascending
+
+db.studentdata.aggregate([{$sort:{marks:1}}])
+{
+  _id: ObjectId('6a435e902155baa4f3418b90'),
+  name: 'Riya',
+  city: 'Surat',
+  marks: 70
+}
+{
+  _id: ObjectId('6a435e902155baa4f3418b92'),
+  name: 'Priya',
+  city: 'Surat',
+  marks: 80
+}
+{
+  _id: ObjectId('6a435e902155baa4f3418b8f'),
+  name: 'Niya',
+  city: 'Ahmedabad',
+  marks: 85
+}
+{
+  _id: ObjectId('6a435e902155baa4f3418b91'),
+  name: 'Siya',
+  city: 'Ahmedabad',
+  marks: 90
+}
+ 
+// descending
+
+db.studentdata.aggregate([{$sort:{marks:-1}}])
+{
+  _id: ObjectId('6a435e902155baa4f3418b91'),
+  name: 'Siya',
+  city: 'Ahmedabad',
+  marks: 90
+}
+{
+  _id: ObjectId('6a435e902155baa4f3418b8f'),
+  name: 'Niya',
+  city: 'Ahmedabad',
+  marks: 85
+}
+{
+  _id: ObjectId('6a435e902155baa4f3418b92'),
+  name: 'Priya',
+  city: 'Surat',
+  marks: 80
+}
+{
+  _id: ObjectId('6a435e902155baa4f3418b90'),
+  name: 'Riya',
+  city: 'Surat',
+  marks: 70
+}
+ 
+// $project
+
+db.studentdata.aggregate([{$project:{_id:0,name:1}}])
+{
+  name: 'Niya'
+}
+{
+  name: 'Riya'
+}
+{
+  name: 'Siya'
+}
+{
+  name: 'Priya'
+}
+ 
+
+// temporary rename
+
+db.studentdata.aggregate([{$project:{_id:0,studentname:"$name",score:'$marks'}}])
+{
+  studentname: 'Niya',
+  score: 85
+}
+{
+  studentname: 'Riya',
+  score: 70
+}
+{
+  studentname: 'Siya',
+  score: 90
+}
+{
+  studentname: 'Priya',
+  score: 80
+}
+
+// db.studentdata.insertMany([{name:'Sriya',city:'Rajkot',marks:82},{name:'Tiya',city:'Rajkot',marks:87}])
+
+ 
+perform using Aggregation pipeline: 
+1. select students whose marks are greater than or equals to 80
+2. group the selected students by city 
+3. calculate the total marks obtained by students in each city
+4. sort the result in descending order of total marks
+5. display only the cityname and total marks
+
+db.studentdata.aggregate([{$match:{marks:{$gte:80}}},{$group:{_id:"$city",totalmarks:{$sum:'$marks'}}},{$sort:{totalmarks:-1}},{$project:{_id:0,city:"$_id",totalmarks:'$totalmarks'}}])
+{
+  city: 'Ahmedabad',
+  totalmarks: 175
+}
+{
+  city: 'Rajkot',
+  totalmarks: 169
+}
+{
+  city: 'Surat',
+  totalmarks: 80
+}
+

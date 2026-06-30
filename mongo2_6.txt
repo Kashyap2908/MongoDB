@@ -1,0 +1,324 @@
+db.New.insertMany([
+{
+    _id: 1,
+    customerName: "Rahul ",
+    city: "Ahmedabad",
+    state: "Gujarat",
+    membership: "Gold",
+    totalSpent: 45000
+},
+{
+    _id: 2,
+    customerName: "Priya ",
+    city: "Surat",
+    state: "Gujarat",
+    membership: "Silver",
+    totalSpent: 22000
+},
+{
+    _id: 3,
+    customerName: "Amit ",
+    city: "Mumbai",
+    state: "Maharashtra",
+    membership: "Gold",
+    totalSpent: 90000
+},
+{
+    _id: 4,
+    customerName: "Neha ",
+    city: "Pune",
+    state: "Maharashtra",
+    membership: "Gold",
+    totalSpent: 60000
+},
+{
+    _id: 5,
+    customerName: "Rohit ",
+    city: "Delhi",
+    state: "Delhi",
+    membership: "Bronze",
+    totalSpent: 18000
+},
+{
+    _id: 6,
+    customerName: "Sneha ",
+    city: "Hyderabad",
+    state: "Telangana",
+    membership: "Silver",
+    totalSpent: 55000
+},
+{
+    _id: 7,
+    customerName: "Arjun ",
+    city: "Bengaluru",
+    state: "Karnataka",
+    membership: "Gold",
+    totalSpent: 30000
+},
+{
+    _id: 8,
+    customerName: "Kavya ",
+    city: "Chennai",
+    state: "Tamil Nadu",
+    membership: "Platinum",
+    totalSpent: 100000
+},
+{
+    _id: 9,
+    customerName: "Vikram ",
+    city: "Jaipur",
+    state: "Rajasthan",
+    membership: "Gold",
+    totalSpent: 70000
+},
+{
+    _id: 10,
+    customerName: "Pooja ",
+    city: "Lucknow",
+    state: "Uttar Pradesh",
+    membership: "Bronze",
+    totalSpent: 15000
+}
+])
+
+
+
+//find customers who spend more than 15000
+
+db.New.aggregate([{$match:{totalSpent:{$gt:50000}}}])
+{
+  _id: 3,
+  customerName: 'Amit ',
+  city: 'Mumbai',
+  state: 'Maharashtra',
+  membership: 'Gold',
+  totalSpent: 90000
+}
+{
+  _id: 4,
+  customerName: 'Neha ',
+  city: 'Pune',
+  state: 'Maharashtra',
+  membership: 'Gold',
+  totalSpent: 60000
+}
+{
+  _id: 6,
+  customerName: 'Sneha ',
+  city: 'Hyderabad',
+  state: 'Telangana',
+  membership: 'Silver',
+  totalSpent: 55000
+}
+{
+  _id: 8,
+  customerName: 'Kavya ',
+  city: 'Chennai',
+  state: 'Tamil Nadu',
+  membership: 'Platinum',
+  totalSpent: 100000
+}
+{
+  _id: 9,
+  customerName: 'Vikram ',
+  city: 'Jaipur',
+  state: 'Rajasthan',
+  membership: 'Gold',
+  totalSpent: 70000
+}
+ 
+
+// count customers in each membership
+
+db.New.aggregate([{$group:{_id:"$membership",customers:{$sum:1}}}])
+{
+  _id: 'Bronze',
+  customers: 2
+}
+{
+  _id: 'Gold',
+  customers: 5
+}
+{
+  _id: 'Silver',
+  customers: 2
+}
+{
+  _id: 'Platinum',
+  customers: 1
+}
+ 
+
+// total spending by state
+
+db.New.aggregate([{$group:{_id:"$state",TotalSpending:{$sum:"$totalSpent"}}}])
+{
+  _id: 'Uttar Pradesh',
+  TotalSpending: 15000
+}
+{
+  _id: 'Tamil Nadu',
+  TotalSpending: 100000
+}
+{
+  _id: 'Maharashtra',
+  TotalSpending: 150000
+}
+{
+  _id: 'Gujarat',
+  TotalSpending: 67000
+}
+{
+  _id: 'Delhi',
+  TotalSpending: 18000
+}
+{
+  _id: 'Karnataka',
+  TotalSpending: 30000
+}
+{
+  _id: 'Rajasthan',
+  TotalSpending: 70000
+}
+{
+  _id: 'Telangana',
+  TotalSpending: 55000
+}
+ 
+
+// sort customers by totalSpending #highest first
+
+db.New.aggregate([{$sort:{totalSpent:-1}}])
+{
+  _id: 8,
+  customerName: 'Kavya ',
+  city: 'Chennai',
+  state: 'Tamil Nadu',
+  membership: 'Platinum',
+  totalSpent: 100000
+}
+{
+  _id: 3,
+  customerName: 'Amit ',
+  city: 'Mumbai',
+  state: 'Maharashtra',
+  membership: 'Gold',
+  totalSpent: 90000
+}
+{
+  _id: 9,
+  customerName: 'Vikram ',
+  city: 'Jaipur',
+  state: 'Rajasthan',
+  membership: 'Gold',
+  totalSpent: 70000
+}
+{
+  _id: 4,
+  customerName: 'Neha ',
+  city: 'Pune',
+  state: 'Maharashtra',
+  membership: 'Gold',
+  totalSpent: 60000
+}
+{
+  _id: 6,
+  customerName: 'Sneha ',
+  city: 'Hyderabad',
+  state: 'Telangana',
+  membership: 'Silver',
+  totalSpent: 55000
+}
+{
+  _id: 1,
+  customerName: 'Rahul ',
+  city: 'Ahmedabad',
+  state: 'Gujarat',
+  membership: 'Gold',
+  totalSpent: 45000
+}
+{
+  _id: 7,
+  customerName: 'Arjun ',
+  city: 'Bengaluru',
+  state: 'Karnataka',
+  membership: 'Gold',
+  totalSpent: 30000
+}
+{
+  _id: 2,
+  customerName: 'Priya ',
+  city: 'Surat',
+  state: 'Gujarat',
+  membership: 'Silver',
+  totalSpent: 22000
+}
+{
+  _id: 5,
+  customerName: 'Rohit ',
+  city: 'Delhi',
+  state: 'Delhi',
+  membership: 'Bronze',
+  totalSpent: 18000
+}
+{
+  _id: 10,
+  customerName: 'Pooja ',
+  city: 'Lucknow',
+  state: 'Uttar Pradesh',
+  membership: 'Bronze',
+  totalSpent: 15000
+}
+ 
+
+// goldmember => project only name
+
+db.New.aggregate([{$match:{membership:"Gold"}},{$project:{customerName:"$customerName",_id:0}}])
+{
+  customerName: 'Rahul '
+}
+{
+  customerName: 'Amit '
+}
+{
+  customerName: 'Neha '
+}
+{
+  customerName: 'Arjun '
+}
+{
+  customerName: 'Vikram '
+}
+ 
+
+// total sales in gujarat
+
+db.New.aggregate([{$group:{_id:"$state",TotalSpending:{$sum:"$totalSpent"}}},{$match:{_id:'Gujarat'}},{$project:{_id:0,state:'$_id',TotalSpendind:"$TotalSpending"}}])
+{
+  state: 'Gujarat',
+  TotalSpendind: 67000
+}
+ 
+Gold membership
+totalSpending by state
+sort descending order by totalSpending
+project state,totalSpending
+
+db.New.aggregate([{$match:{membership:"Gold"}},{$group:{_id:"$state",TotalSpending:{$sum:"$totalSpent"}}},{$sort:{totalSpending:-1}},{$project:{_id:0,state:'$_id',TotalSpending:"$TotalSpending"}}])
+{
+  state: 'Rajasthan',
+  TotalSpending: 70000
+}
+{
+  state: 'Maharashtra',
+  TotalSpending: 150000
+}
+{
+  state: 'Gujarat',
+  TotalSpending: 45000
+}
+{
+  state: 'Karnataka',
+  TotalSpending: 30000
+}
+ 
